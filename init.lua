@@ -119,6 +119,7 @@ end)
 --    plugin(s) and then configures them. Adding a plugin = create a module and
 --    require it here. The lockfile lives at `nvim-pack-lock.json` (committed).
 require 'plugins.mini-pick'
+require 'plugins.treesitter'
 
 -- [[ LSP ]]
 --    Native LSP client configuration (Neovim 0.11+). See lua/lsp.lua.
