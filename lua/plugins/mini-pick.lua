@@ -29,7 +29,6 @@ local function win_config()
     width = width,
     row = math.floor(0.5 * (vim.o.lines - height)),
     col = math.floor(0.5 * (vim.o.columns - width)),
-    border = 'rounded',
   }
 end
 
