@@ -1,19 +1,41 @@
 -- mini.pick + mini.extra, installed via the built-in `vim.pack` manager.
 --   mini.pick: minimal, fast fuzzy picker (files, grep, buffers, ...)
 --   mini.extra: extra pickers built on mini.pick (diagnostics, oldfiles, ...)
---   See `:help mini.pick`, `:help mini.extra`, `:help vim.pack`.
+--   mini.icons: file/folder icons used by mini.pick (needs a Nerd Font).
+--   See `:help mini.pick`, `:help mini.extra`, `:help mini.icons`.
 
 -- Install (blobless clone on first run) and add to runtimepath.
 -- `confirm = false` installs without the interactive confirmation prompt.
 vim.pack.add({
   { src = 'https://github.com/echasnovski/mini.pick' },
   { src = 'https://github.com/echasnovski/mini.extra' },
+  { src = 'https://github.com/echasnovski/mini.icons' },
 }, { confirm = false })
+
+-- Icons must be set up before the picker shows items so it can pick them up.
+require('mini.icons').setup()
 
 local pick = require 'mini.pick'
 local extra = require 'mini.extra'
 
-pick.setup()
+-- Center the picker window (golden-ratio sized) with a rounded border, rather
+-- than the small default in the top-left corner.
+local function win_config()
+  local height = math.floor(0.618 * vim.o.lines)
+  local width = math.floor(0.618 * vim.o.columns)
+  return {
+    anchor = 'NW',
+    height = height,
+    width = width,
+    row = math.floor(0.5 * (vim.o.lines - height)),
+    col = math.floor(0.5 * (vim.o.columns - width)),
+    border = 'rounded',
+  }
+end
+
+pick.setup {
+  window = { config = win_config },
+}
 extra.setup()
 
 -- Route `vim.ui.select` (LSP code actions, etc.) through mini.pick
