@@ -1,0 +1,7 @@
+# Plugin manager lockfile is committed; ignore runtime/state dirs
+lazy-lock.json.bak
+
+# Neovim runtime artifacts (in case anything lands in-tree)
+*.swp
+*.swo
+.DS_Store
