@@ -120,3 +120,7 @@ end)
 --    require it here. The lockfile lives at `nvim-pack-lock.json` (committed).
 require 'plugins.mini-pick'
 
+-- [[ LSP ]]
+--    Native LSP client configuration (Neovim 0.11+). See lua/lsp.lua.
+require 'lsp'
+
