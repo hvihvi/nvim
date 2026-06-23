@@ -1,0 +1,12 @@
+{
+  "plugins": {
+    "mini.extra": {
+      "rev": "e5ecf197f8954d002cb9e85b3715851e2c8d3cd5",
+      "src": "https://github.com/echasnovski/mini.extra"
+    },
+    "mini.pick": {
+      "rev": "8c1f75f8ddd8c9f75d07ed2ab5718d2c3cb65a66",
+      "src": "https://github.com/echasnovski/mini.pick"
+    }
+  }
+}
