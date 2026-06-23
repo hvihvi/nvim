@@ -4,13 +4,14 @@ vim.g.maplocalleader = ' '
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
+vim.opt.number = true
+
 vim.opt.mouse = 'a'
 
 vim.opt.breakindent = true
 
 -- Save undo history
 vim.opt.undofile = true
-
 
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
@@ -25,6 +26,7 @@ vim.opt.timeoutlen = 300
 -- Configure how new splits should be opened
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
@@ -86,12 +88,12 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
+--  See `:help vim.hl.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 
