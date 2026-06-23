@@ -20,9 +20,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = bufnr, desc = 'LSP: [G]oto [D]efinition' })
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = bufnr, desc = 'LSP: [G]oto [D]eclaration' })
 
-    -- Native LSP autocompletion (Neovim 0.11+), triggered as you type.
+    -- Native LSP completion (Neovim 0.11+). No autotrigger: the menu only
+    -- appears on demand. Trigger it with <C-Space> in insert mode.
     if client and client:supports_method 'textDocument/completion' then
-      vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+      vim.lsp.completion.enable(true, client.id, bufnr)
+      vim.keymap.set('i', '<C-Space>', vim.lsp.completion.get, { buffer = bufnr, desc = 'LSP: trigger completion' })
     end
 
     -- Inlay hints, when the server provides them.
