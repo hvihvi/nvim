@@ -71,6 +71,32 @@ That's it. On first launch:
 - **Add a language server:** install its binary, drop a `lsp/<name>.lua` config
   file, and add `vim.lsp.enable('<name>')` in `lua/lsp.lua`.
 
+## Godot / GDScript
+
+GDScript support is built in (LSP + treesitter + external-editor integration).
+The LSP server is **hosted by the Godot editor**, so it only works while Godot
+is open with your project.
+
+**One-time Godot setup** (Editor → Editor Settings):
+
+1. **Network → Language Server** — note the port (default `6005`) and enable
+   **Use Thread** (prevents the LSP from dropping when opening files).
+2. **Text Editor → External**:
+   - *Use External Editor*: **on**
+   - *Exec Path*: path to your `nvim` binary (e.g. `/opt/homebrew/bin/nvim`)
+   - *Exec Flags*:
+     ```
+     --server {project}/server.pipe --remote-send "<C-\><C-N>:e {file}<CR>:call cursor({line}+1,{col})<CR>"
+     ```
+
+**Usage:** launch `nvim` from inside the project directory (it auto-listens on
+`<project>/server.pipe`), keep the Godot editor open, and open `.gd` files.
+Clicking a script in Godot opens it in that running Neovim at the right line.
+
+> If completion/diagnostics don't appear: confirm Godot is running, the port
+> matches (`GDScript_Port` env var overrides it), and you launched nvim from
+> within the project (so `project.godot` is found and the LSP root resolves).
+
 ## Layout
 
 ```

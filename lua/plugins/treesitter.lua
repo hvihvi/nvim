@@ -18,6 +18,10 @@ local parsers = {
   'bash',
   'json',
   'yaml',
+  -- Godot
+  'gdscript',
+  'godot_resource', -- .tscn / .tres scene & resource files
+  'gdshader',
 }
 
 -- Build/update parsers whenever vim.pack installs or updates the plugin.

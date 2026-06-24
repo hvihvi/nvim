@@ -125,3 +125,16 @@ require 'plugins.treesitter'
 --    Native LSP client configuration (Neovim 0.11+). See lua/lsp.lua.
 require 'lsp'
 
+-- [[ Godot external editor ]]
+--    When launched inside a Godot project, listen on `<project>/server.pipe`
+--    so the Godot editor opens files in this running nvim instance (instead of
+--    spawning a new one per file). Godot's "Exec Flags" must point at the same
+--    pipe (see README). Harmless outside Godot projects.
+local godot_root = vim.fs.root(vim.uv.cwd() or '.', 'project.godot')
+if godot_root then
+  local pipe = godot_root .. '/server.pipe'
+  if not vim.uv.fs_stat(pipe) then
+    vim.fn.serverstart(pipe)
+  end
+end
+

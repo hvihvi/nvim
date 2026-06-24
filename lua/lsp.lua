@@ -5,6 +5,9 @@
 
 -- Enable language servers (config comes from the matching lsp/<name>.lua).
 vim.lsp.enable 'lua_ls'
+-- gdscript connects to a running Godot editor (no-op outside Godot projects /
+-- when Godot isn't running, so it's safe to always enable).
+vim.lsp.enable 'gdscript'
 
 -- Buffer-local setup when any language server attaches.
 --   Note: Nvim already provides default LSP keymaps when a server attaches:
