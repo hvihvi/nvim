@@ -51,8 +51,12 @@ map('<leader>fb', pick.builtin.buffers, '[F]ind [B]uffers')
 map('<leader>fh', pick.builtin.help, '[F]ind [H]elp')
 map('<leader>fr', pick.builtin.resume, '[F]ind [R]esume last picker')
 
+-- Convenience aliases outside the <leader>f group
+map('<leader>e', extra.pickers.oldfiles, 'Recent files (oldfiles)')
+map('<leader>sa', pick.builtin.grep_live, '[S]earch [A]ll files (live grep)')
+
 -- Extra pickers (mini.extra)
-map('<leader>fd', extra.pickers.diagnostic, '[F]ind [D]iagnostics')
+map('<leader>fé', extra.pickers.diagnostic, 'Find diagnostics')
 map('<leader>fo', extra.pickers.oldfiles, '[F]ind [O]ld files')
 map('<leader>fk', extra.pickers.keymaps, '[F]ind [K]eymaps')
 map('<leader>fw', function()

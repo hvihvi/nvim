@@ -118,8 +118,10 @@ Leader is `<Space>`.
 |-----|--------|
 | `<leader>ff` / `fg` / `fb` | find files / live grep / buffers |
 | `<leader>fh` / `fr` | help / resume last picker |
-| `<leader>fd` / `fo` / `fk` | diagnostics / old files / keymaps |
+| `<leader>e` / `<leader>sa` | recent files / live grep all files |
+| `<leader>fé` / `fo` / `fk` | diagnostics / old files / keymaps |
 | `<leader>fw` / `f/` | grep word under cursor / lines in buffer |
+| `<leader>fd` / `<leader>fu` | goto definition (like `gd`) / find usages (references) |
 | `<leader>z`, then `k` / `j` (visual) | incremental selection: start, expand, shrink |
 | `<C-n>` / `<C-p>` (visual) | move down / up (since `j`/`k` are taken) |
 | `gd` / `gD`, `K`, `grn`, `gra`, `grr` | LSP: definition / declaration, hover, rename, code action, references |

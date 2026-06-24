@@ -22,6 +22,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = bufnr, desc = 'LSP: [G]oto [D]efinition' })
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = bufnr, desc = 'LSP: [G]oto [D]eclaration' })
+    -- <leader>fd: same as gd (go to definition).
+    vim.keymap.set('n', '<leader>fd', vim.lsp.buf.definition, { buffer = bufnr, desc = 'LSP: goto definition (like gd)' })
+    -- <leader>fu: find usages (all references) as a filterable picker.
+    vim.keymap.set('n', '<leader>fu', function()
+      require('mini.extra').pickers.lsp { scope = 'references' }
+    end, { buffer = bufnr, desc = 'LSP: find usages (references)' })
 
     -- Native LSP completion (Neovim 0.11+). No autotrigger: the menu only
     -- appears on demand. Trigger it with <C-Space> in insert mode.
