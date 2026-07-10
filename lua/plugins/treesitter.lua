@@ -18,6 +18,7 @@ local parsers = {
   'bash',
   'json',
   'yaml',
+  'c_sharp',
   -- Godot
   'gdscript',
   'godot_resource', -- .tscn / .tres scene & resource files
