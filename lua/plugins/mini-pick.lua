@@ -65,3 +65,13 @@ end, '[F]ind current [W]ord')
 map('<leader>f/', function()
   extra.pickers.buf_lines { scope = 'current' }
 end, '[F]ind in current buffer (/)')
+
+-- Git pickers (mini.extra; hunk staging/signs themselves are in plugins/git.lua)
+map('<leader>gu', function()
+  extra.pickers.git_hunks { scope = 'unstaged' }
+end, '[G]it [U]nstaged hunks')
+map('<leader>gs', function()
+  extra.pickers.git_hunks { scope = 'staged' }
+end, '[G]it [S]taged hunks')
+map('<leader>gc', extra.pickers.git_commits, '[G]it [C]ommits')
+map('<leader>gb', extra.pickers.git_branches, '[G]it [B]ranches')

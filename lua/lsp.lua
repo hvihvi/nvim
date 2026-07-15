@@ -10,6 +10,11 @@ vim.lsp.enable 'lua_ls'
 vim.lsp.enable 'gdscript'
 vim.lsp.enable 'roslyn_ls'
 
+-- Diagnostics (global, not LSP-specific).
+--   <leader>éé shows the full message for the diagnostic under the cursor
+--   (same as the built-in <C-w>d). See also <leader>fé (diagnostics picker).
+vim.keymap.set('n', '<leader>éé', vim.diagnostic.open_float, { desc = '[É]rror: show message (float)' })
+
 -- Buffer-local setup when any language server attaches.
 --   Note: Nvim already provides default LSP keymaps when a server attaches:
 --   K (hover), grn (rename), gra (code action), grr (references),
@@ -25,6 +30,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = bufnr, desc = 'LSP: [G]oto [D]eclaration' })
     -- <leader>fd: same as gd (go to definition).
     vim.keymap.set('n', '<leader>fd', vim.lsp.buf.definition, { buffer = bufnr, desc = 'LSP: goto definition (like gd)' })
+    vim.keymap.set('n', '<C-f>', vim.lsp.buf.definition, { buffer = bufnr, desc = 'LSP: goto definition (like gd)' })
     -- <leader>fu: find usages (all references) as a filterable picker.
     vim.keymap.set('n', '<leader>fu', function()
       require('mini.extra').pickers.lsp { scope = 'references' }

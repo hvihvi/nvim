@@ -1,8 +1,16 @@
 {
   "plugins": {
+    "mini-git": {
+      "rev": "19ecaa5b1eea1edb291178412a77f29dee487406",
+      "src": "https://github.com/echasnovski/mini-git"
+    },
     "mini.clue": {
       "rev": "10c1f25158551befb5218e60a0128e4b4ac0fb06",
       "src": "https://github.com/echasnovski/mini.clue"
+    },
+    "mini.diff": {
+      "rev": "be4ca6953040332d77a5a05bb5600152c5c36e7a",
+      "src": "https://github.com/echasnovski/mini.diff"
     },
     "mini.extra": {
       "rev": "e5ecf197f8954d002cb9e85b3715851e2c8d3cd5",
@@ -20,6 +28,10 @@
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
+    },
+    "tokyonight.nvim": {
+      "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
+      "src": "https://github.com/folke/tokyonight.nvim"
     }
   }
 }

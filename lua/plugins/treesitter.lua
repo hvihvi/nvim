@@ -49,6 +49,11 @@ vim.pack.add({
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
 }, { confirm = false })
 
+-- Also reconcile at startup: PackChanged only fires on plugin install/update,
+-- so languages added to `parsers` between updates would otherwise never build.
+-- Async and skips parsers that are already installed, so this is cheap.
+require('nvim-treesitter').install(parsers)
+
 -- Open files unfolded even though we use a treesitter foldexpr below.
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99

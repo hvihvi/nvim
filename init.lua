@@ -118,9 +118,11 @@ end)
 --    Each module under `lua/plugins/` calls `vim.pack.add{...}` to install its
 --    plugin(s) and then configures them. Adding a plugin = create a module and
 --    require it here. The lockfile lives at `nvim-pack-lock.json` (committed).
+require 'plugins.tokyonight'
 require 'plugins.mini-pick'
 require 'plugins.treesitter'
 require 'plugins.mini-clue'
+require 'plugins.git'
 
 -- [[ LSP ]]
 --    Native LSP client configuration (Neovim 0.11+). See lua/lsp.lua.
