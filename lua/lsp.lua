@@ -15,6 +15,48 @@ vim.lsp.enable 'roslyn_ls'
 --   (same as the built-in <C-w>d). See also <leader>fé (diagnostics picker).
 vim.keymap.set('n', '<leader>éé', vim.diagnostic.open_float, { desc = '[É]rror: show message (float)' })
 
+-- Goto definition, unless the cursor is already on the definition — then show
+-- usages instead (same as <leader>fu). The `on_list` hook only collects the
+-- locations (no jump), so we can inspect them: cursor inside one of the
+-- returned ranges means we're already at the definition -> references picker;
+-- otherwise re-run the plain goto-definition to keep the default jump
+-- behavior (tagstack, multiple-results list, ...).
+local function definition_or_usages()
+  local fname = vim.fs.normalize(vim.api.nvim_buf_get_name(0))
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0)) -- row 1-based, col 0-based
+
+  -- Cursor inside this loclist item's range? (lnum/col 1-based; end_* may be
+  -- 0/absent for servers that return bare positions -> fall back to the line.)
+  local function cursor_inside(item)
+    if vim.fs.normalize(item.filename) ~= fname then
+      return false
+    end
+    local end_lnum = (item.end_lnum and item.end_lnum > 0) and item.end_lnum or item.lnum
+    if row < item.lnum or row > end_lnum then
+      return false
+    end
+    if row == item.lnum and col + 1 < item.col then
+      return false
+    end
+    if row == end_lnum and item.end_col and item.end_col > 0 and col + 1 > item.end_col then
+      return false
+    end
+    return true
+  end
+
+  vim.lsp.buf.definition {
+    on_list = function(t)
+      for _, item in ipairs(t.items or {}) do
+        if cursor_inside(item) then
+          require('mini.extra').pickers.lsp { scope = 'references' }
+          return
+        end
+      end
+      vim.lsp.buf.definition()
+    end,
+  }
+end
+
 -- Buffer-local setup when any language server attaches.
 --   Note: Nvim already provides default LSP keymaps when a server attaches:
 --   K (hover), grn (rename), gra (code action), grr (references),
@@ -26,11 +68,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     local bufnr = args.buf
 
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = bufnr, desc = 'LSP: [G]oto [D]efinition' })
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = bufnr, desc = 'LSP: [G]oto [D]eclaration' })
-    -- <leader>fd: same as gd (go to definition).
-    vim.keymap.set('n', '<leader>fd', vim.lsp.buf.definition, { buffer = bufnr, desc = 'LSP: goto definition (like gd)' })
-    vim.keymap.set('n', '<C-f>', vim.lsp.buf.definition, { buffer = bufnr, desc = 'LSP: goto definition (like gd)' })
+    -- gd / <leader>fd / <C-f>: goto definition; when the cursor is already on
+    -- the definition, show usages instead (same as <leader>fu).
+    for _, lhs in ipairs { 'gd', '<leader>fd', '<C-f>' } do
+      vim.keymap.set('n', lhs, definition_or_usages, { buffer = bufnr, desc = 'LSP: goto definition (usages if already there)' })
+    end
+    -- <leader>rn: rename symbol (same as the built-in grn).
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { buffer = bufnr, desc = 'LSP: [R]e[n]ame symbol (like grn)' })
     -- <leader>fu: find usages (all references) as a filterable picker.
     vim.keymap.set('n', '<leader>fu', function()
       require('mini.extra').pickers.lsp { scope = 'references' }
