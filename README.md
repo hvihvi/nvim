@@ -118,6 +118,7 @@ Leader is `<Space>`.
 |-----|--------|
 | `<leader>ff` / `fg` / `fb` | find files / live grep / buffers |
 | `<leader>fh` / `fr` | help / resume last picker |
+| `<leader>o` | find files (alias for `<leader>ff`) |
 | `<leader>e` / `<leader>sa` | recent files / live grep all files |
 | `<leader>fé` / `fo` / `fk` | diagnostics / old files / keymaps |
 | `<leader>fw` / `f/` | grep word under cursor / lines in buffer |

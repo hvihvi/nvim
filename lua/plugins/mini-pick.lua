@@ -52,6 +52,7 @@ map('<leader>fh', pick.builtin.help, '[F]ind [H]elp')
 map('<leader>fr', pick.builtin.resume, '[F]ind [R]esume last picker')
 
 -- Convenience aliases outside the <leader>f group
+map('<leader>o', pick.builtin.files, 'Find files (alias for <leader>ff)')
 map('<leader>e', extra.pickers.oldfiles, 'Recent files (oldfiles)')
 map('<leader>sa', pick.builtin.grep_live, '[S]earch [A]ll files (live grep)')
 
